@@ -60,9 +60,10 @@ Right-click **empty space** in any folder, with nothing selected:
 | <picture><source media="(prefers-color-scheme: dark)" srcset="docs/icons/terminal-dark.png"><img src="docs/icons/terminal.png" width="20" height="20" alt=""></picture> | **Open&nbsp;Terminal&nbsp;Here** | Opens a terminal in the current folder: iTerm2, Ghostty, Warp, WezTerm, kitty or Alacritty if you have one, otherwise Terminal. [Pick your own](#settings). |
 | <picture><source media="(prefers-color-scheme: dark)" srcset="docs/icons/open-with-dark.png"><img src="docs/icons/open-with.png" width="20" height="20" alt=""></picture> | **Open&nbsp;Folder&nbsp;With&nbsp;▸** | Opens the current folder in an IDE or editor. Lists the ones you have installed (VS Code, Cursor, Windsurf, Zed, Sublime Text, JetBrains IDEs, Android Studio, Xcode…), plus **Other App…** to pick any app. |
 | <picture><source media="(prefers-color-scheme: dark)" srcset="docs/icons/copy-path-dark.png"><img src="docs/icons/copy-path.png" width="20" height="20" alt=""></picture> | **Copy&nbsp;Path** | Copies the current folder's full path. |
+| <picture><source media="(prefers-color-scheme: dark)" srcset="docs/icons/copy-name-dark.png"><img src="docs/icons/copy-name.png" width="20" height="20" alt=""></picture> | **Copy&nbsp;Name** | Copies the current folder's name, like `my-project`. Off until you turn it on in [settings](#settings). |
 | <picture><source media="(prefers-color-scheme: dark)" srcset="docs/icons/parent-folder-dark.png"><img src="docs/icons/parent-folder.png" width="20" height="20" alt=""></picture> | **Go&nbsp;to&nbsp;Parent&nbsp;Folder** | Moves the window up one level, even when Finder's Back button is greyed out (e.g. a window opened with `open .`). |
 
-Right-clicking a file or folder works too: **Copy Path** copies the selected items' paths, and **Open Terminal Here** and **Open Folder With** use the selected folder.
+Right-clicking a file or folder works too: **Copy Path** and **Copy Name** copy the selected items' paths or names (file names with their extensions), and **Open Terminal Here** and **Open Folder With** use the selected folder.
 
 The menu also appears on external drives, disk images and network shares (such as SMB), not just your Mac's own disk.
 
@@ -120,7 +121,7 @@ From source, run `git pull && ./install.sh` in the repo folder.
 
 Open **Finder Menu** from Spotlight or your Applications folder, or run `finder-menu settings`. The settings window lets you:
 
-- choose which items appear in the right-click menu
+- choose which items appear in the right-click menu (**Copy Name** is off until you turn it on)
 - choose whether the menu also appears on external and network drives (it does by default)
 - turn the menu's icons on or off (by default they follow Finder: on in macOS 26 and later, off before)
 - pick the terminal for **Open Terminal Here**. Automatic uses the first one installed, in this order: iTerm2, Ghostty, Warp, WezTerm, kitty, Alacritty, Terminal. **Other App…** lets you pick any app.
@@ -184,7 +185,7 @@ From source:
 
 ## How it works
 
-- `Sources/FinderMenuExtension` is a [Finder Sync extension](https://developer.apple.com/documentation/findersync) that adds the menu items to every folder. Finder only asks it about the drives it lists, so it lists every mounted drive and updates the list when one is mounted or ejected. Finder extensions must run sandboxed, so this part only reads the clicked folder and copies paths.
+- `Sources/FinderMenuExtension` is a [Finder Sync extension](https://developer.apple.com/documentation/findersync) that adds the menu items to every folder. Finder only asks it about the drives it lists, so it lists every mounted drive and updates the list when one is mounted or ejected. Finder extensions must run sandboxed, so this part only reads the clicked folder and copies paths and names.
 - `Sources/FinderMenu` is a small helper app that isn't sandboxed and has no Dock icon. The extension hands it actions through a `findermenu://` URL, and the helper ignores those URLs from anything else. It creates the files, opens the terminal and moves the Finder window, then quits.
 - `Sources/Shared/Settings.swift` holds the list of menu items and reads the settings; `Sources/FinderMenu/SettingsWindow.swift` is the settings window. The helper writes the settings, and the extension only reads them.
 - `Sources/Shared/Templates.swift` holds the New File templates (saved file names). The extension builds the New File submenu from them, and the helper looks up the chosen template by id, so the file name never travels in the URL.

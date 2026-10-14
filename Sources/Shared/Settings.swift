@@ -13,13 +13,24 @@ let menuItems: [(id: String, title: String, symbol: String)] = [
     ("terminal", "Open Terminal Here", "terminal"),
     ("open-with", "Open Folder With", "arrow.up.forward.app"),
     ("copy-path", "Copy Path", "doc.on.doc"),
+    ("copy-name", "Copy Name", "character.cursor.ibeam"),
     ("parent-folder", "Go to Parent Folder", "arrow.turn.left.up"),
 ]
 
-func isHidden(_ item: String) -> Bool { settings.bool(forKey: "Hide.\(item)") }
+// Items that start hidden, to keep the menu short; settings turns them on. Only a choice that differs
+// from an item's default is saved.
+private let hiddenByDefault: Set<String> = ["copy-name"]
+
+func isHidden(_ item: String) -> Bool {
+    settings.object(forKey: "Hide.\(item)") as? Bool ?? hiddenByDefault.contains(item)
+}
 
 func setHidden(_ item: String, _ hidden: Bool) {
-    if hidden { settings.set(true, forKey: "Hide.\(item)") } else { settings.removeObject(forKey: "Hide.\(item)") }
+    if hidden == hiddenByDefault.contains(item) {
+        settings.removeObject(forKey: "Hide.\(item)")
+    } else {
+        settings.set(hidden, forKey: "Hide.\(item)")
+    }
 }
 
 // Bundle ID of the terminal for Open Terminal Here; nil means pick the first installed one automatically.
