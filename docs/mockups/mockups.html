@@ -369,8 +369,9 @@ const scenes = {
             h('div', null, h('div', { cls: 'name' }, 'Finder Menu'), h('div', { cls: 'version' }, 'Version 1.4.0'),
               h('div', { cls: 'link' }, 'github.com/nikgrbn/finder-menu'))),
           gap(20), h('div', { cls: 'section' }, 'Show in the right-click menu'), gap(10),
-          ['New File…', 'Open Terminal Here', 'Open Folder With', 'Copy Path', 'Go to Parent Folder']
-            .flatMap((title, i) => [i ? gap(8) : null, checkbox(title)]),
+          // Copy Name starts hidden, like in a new install.
+          ['New File…', 'Open Terminal Here', 'Open Folder With', 'Copy Path', 'Copy Name', 'Go to Parent Folder']
+            .flatMap((title, i) => [i ? gap(8) : null, checkbox(title, title !== 'Copy Name')]),
           gap(14), checkbox('Also on external and network drives'),
           gap(8), checkbox('Show icons'),
           gap(20), h('div', { cls: 'section' }, 'Open Terminal Here uses'), gap(10),

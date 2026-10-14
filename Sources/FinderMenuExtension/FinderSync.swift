@@ -47,6 +47,7 @@ class FinderMenuSync: FIFinderSync {
             case "terminal": entry.action = #selector(openTerminal(_:))
             case "open-with": entry.submenu = Self.openWithMenu()
             case "copy-path": entry.action = #selector(copyPath(_:))
+            case "copy-name": entry.action = #selector(copyName(_:))
             case "parent-folder":
                 guard let dir = currentFolder, !isDriveRoot(dir) else { continue }
                 entry.action = #selector(goUp(_:))
@@ -174,10 +175,23 @@ class FinderMenuSync: FIFinderSync {
     }
 
     @objc func copyPath(_ sender: AnyObject?) {
+        copyToPasteboard(\.path)
+    }
+
+    // The name as stored, with its extension even when Finder hides it. "/" has no name of its own,
+    // so use the startup disk's, which is what Finder shows there.
+    @objc func copyName(_ sender: AnyObject?) {
+        copyToPasteboard { url in
+            url.path == "/" ? (try? url.resourceValues(forKeys: [.volumeNameKey]).volumeName) ?? "/" : url.lastPathComponent
+        }
+    }
+
+    // One line per selected item, or the folder you're in when nothing is selected.
+    private func copyToPasteboard(_ text: (URL) -> String) {
         let urls = selection.isEmpty ? [currentFolder].compactMap { $0 } : selection
         guard !urls.isEmpty else { return }
         NSPasteboard.general.clearContents()
-        NSPasteboard.general.setString(urls.map(\.path).joined(separator: "\n"), forType: .string)
+        NSPasteboard.general.setString(urls.map(text).joined(separator: "\n"), forType: .string)
     }
 
     // The extension is sandboxed, so file creation and app launching happen in the helper app.
