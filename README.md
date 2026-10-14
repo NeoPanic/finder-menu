@@ -145,20 +145,18 @@ Finder Menu uses your Mac's language, or English if it isn't one of these:
   <tr>
     <td align="center" valign="top" width="160">🇺🇸 <b>English</b></td>
     <td align="center" valign="top" width="160">🇨🇳 <b>简体中文</b><br><sub>by <a href="https://github.com/yunyv">@yunyv</a></sub></td>
+    <td align="center" valign="top" width="160">🇫🇷 <b>Français</b><br><sub>by <a href="https://github.com/GullmeVrn">@GullmeVrn</a></sub></td>
     <td align="center" valign="top" width="160">🇩🇪 <b>Deutsch</b><br><sub>by <a href="https://github.com/9trzj5nztr-design">@9trzj5nztr-design</a></sub></td>
-    <td align="center" valign="top" width="160">🇮🇹 <b>Italiano</b></td>
   </tr>
   <tr>
+    <td align="center" valign="top">🇮🇹 <b>Italiano</b></td>
     <td align="center" valign="top">🇮🇷 <b>فارسی</b><br><sub>by <a href="https://github.com/aliafshany">@aliafshany</a></sub></td>
     <td align="center" valign="top">🇷🇺 <b>Русский</b></td>
     <td align="center" valign="top">🇪🇸 <b>Español</b><br><sub>by <a href="https://github.com/LuigimonSoft">@LuigimonSoft</a></sub></td>
+  </tr>
+  <tr>
     <td align="center" valign="top">🇺🇦 <b>Українська</b><br><sub>by <a href="https://github.com/artemartemenko">@artemartemenko</a></sub></td>
-  </tr>
-  <tr>
-    <td align="center" valign="top">🇫🇷 <b>Français</b><br><sub>by <a href="https://github.com/GullmeVrn">@GullmeVrn</a></sub></td>
-  </tr>
-  <tr>
-    <td align="center" valign="top" colspan="4">➕ <a href="#contributing"><b>Add yours</b></a></td>
+    <td align="center" valign="top">➕ <a href="#contributing"><b>Add yours</b></a></td>
   </tr>
 </table>
 
