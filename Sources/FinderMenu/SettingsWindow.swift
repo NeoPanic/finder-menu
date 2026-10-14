@@ -122,6 +122,8 @@ final class SettingsWindowController: NSWindowController {
             empty.font = .systemFont(ofSize: NSFont.smallSystemFontSize)
             empty.textColor = .tertiaryLabelColor
             templatesStack.addArrangedSubview(empty)
+            // The stack only pulls its views to the edges weakly, so a label at its own width ends up trailing.
+            empty.leadingAnchor.constraint(equalTo: templatesStack.leadingAnchor).isActive = true
         } else {
             for template in templates {
                 templatesStack.addArrangedSubview(templateRow(template))
